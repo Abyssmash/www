@@ -469,7 +469,7 @@
 
         <div class="col-12">
           <div class="form-check">
-            <input class="form-check-input" type="checkbox" id="gridCheck" name="viewmember">
+            <input class="form-check-input" type="checkbox" id="gridCheck" name="viewmember" value=1>
             <label class="form-check-label" for="gridCheck">
               회원만 보기
             </label>
@@ -477,6 +477,7 @@
         </div>
         <div class="col-12">
           <button type="submit" class="btn btn-primary">저장하기</button>
+          <!--  submit 타입은 form action으로 지정된 곳으로 이동 -->
         </div>
       </form>
     </div>
