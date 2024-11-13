@@ -10,15 +10,26 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</insert>
 	<select id="selectall"
 	resultType = "www.silver.vo.BoardVO">
-	select * from kboard
-	</select>		
+		select t.* from (select sub.*, rownum as rnum from (select * from
+		kboard order by indate DESC) sub) t
+		where rnum between #{startNo} and #{endNo}
+	</select>	
+	<select id="allcnt" resultType="int">
+		select count(*) from kboard
+	</select>	
 	<select id="selectTitle" parameterType="String"
 	resultType= "www.silver.vo.BoardVO">
-	select * from kboard where title=#{t}
+		select * from kboard where title=#{t}
 	</select>
+	<update id="update"
+	parameterType="www.silver.vo.BoardVO">
+		update kboard set type=#{type}, pass=#{pass},
+		content=#{content},username=#{username},
+		viewmember=#{veiwmember} where title=#{title}
+	</update>
 	<delete id="delone"
 	parameterType="String">
-	delete from kboard where title=#{delno}
+		delete from kboard where title=#{delno}
 	</delete>
 </mapper>
 

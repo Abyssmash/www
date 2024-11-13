@@ -436,27 +436,29 @@
         </div>
       </div>
 
-      <form class="row g-3" action="bwrdo" method="post">
+      <form class="row g-3" action="mod" method="post">
         <div class="col-md-4">
           <label for="inputState" class="form-label">놀이터 선택</label>
           <select id="inputState" class="form-select" name="type">
             <option <c:if test="${boardvo.type eq 'DataBase' }">
              selected </c:if>> Database</option>
              
-            <option>Java</option>
+            <option <c:if test="${boardvo.type eq 'Java'}">selected
+            </c:if>> Java</option>
           </select>
         </div>
         <div class="col-md-3">
           <label for="inputCity" class="form-label">작성자</label>
-          <input type="text" class="form-control" id="inputCity"name="${boardvo.name}">
+          <input type="text" class="form-control" id="inputCity"name="username" value"${boardvo.username }">
         </div>
         <div class="col-md-3">
           <label for="inputPassword4" class="form-label">Password</label>
-          <input type="password" class="form-control" id="inputPassword4" name="${boardvo.pass}">
+          <input type="password" class="form-control" id="inputPassword4" name="pass" value="${boardvo.pass}">
         </div>
         <div class="col-12">
           <label for="inputAddress" class="form-label">제목</label>
-          <input type="text" class="form-control" id="inputAddress" placeholder="제목을 입력하세요" name="${boardvo.title }">
+          <input type="text" class="form-control" id="inputAddress" placeholder="제목을 입력하세요" name="title" 
+          value="${boardvo.title}" readonly>
         </div>
 
 

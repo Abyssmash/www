@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import www.silver.service.IF_BoardService;
 import www.silver.vo.BoardVO;
+import www.silver.vo.PageVO;
 
 @Controller
 public class BoardController {
@@ -22,15 +23,31 @@ public class BoardController {
 	IF_BoardService boardservice;
 	
 	@GetMapping(value = "board")
-	public String board(Model model) throws Exception{
+	public String board(Model model,
+			@ModelAttribute PageVO pagevo) throws Exception{
 		// Controller > service > dao > mapper
 		// 전체 게시글을 가져오는 작업이 필요
 		//System.out.println("확인");
+		if(pagevo.getPage()==null) {
+			pagevo.setPage(1);
+		}
+		// 3가지 정보만 있으면 페이지 계산이 가능
+		// 1. 현재 페이지 
+		// 2. 페이지당 게시물 수
+		// 3. 전체 페이지 수
+		pagevo.setTotalCount(boardservice.totalCountBoard());
+		
+		// 확인용
+		System.out.println(pagevo.getStartNo()+"시작 글번호");
+		System.out.println(pagevo.getEndNo()+"마지막 글번호");
+		System.out.println(pagevo.getStartPage()+"그룹시작 번호");
+		System.out.println(pagevo.getEndPage()+"그룹 마지막 번호");
+		
 		
 		// 서비스 Layer에 전체글 서비스를 요청하고 결과를 리턴
-		List<BoardVO> list = boardservice.boardList();
+		List<BoardVO> list = boardservice.boardList(pagevo);
 		// 단위테스트
-		System.out.println(list.size()+"건 가져옴");
+		// System.out.println(list.size()+"건 가져옴");
 		// 리턴받은 list 변수의 값을 모델 객체로 뷰에게 전송하는 코드 
 		model.addAttribute("list",list);
 		// 뷰를 지정
@@ -41,6 +58,13 @@ public class BoardController {
 		// Controller > service > dao > mapper
 		// 전체 게시글을 가져오는 작업이 필요
 		return "board/bbswr";
+	}
+	@PostMapping(value="mod")
+	public String modsave(@ModelAttribute BoardVO boardvo)throws Exception{
+		// 단위 테스트
+		//System.out.println(bvo.getTitle());
+		boardservice.modBoard(boardvo);
+		return "redirect:board";
 	}
 	@GetMapping(value="mod")
 	public String mod(@RequestParam("modno") String modno, Model model)throws Exception {
