@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
- <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -427,58 +427,68 @@
       </div>
     </div>
     <div id="mainsection_01">
-
+      <br>
       <div>
-        <div>
-          <div class="card text-center">
-            <div class="card-body">
-
-              <h5 class="card-title">게시판</h5>
-            </div>
+        <div class="card text-center">
+          <div class="card-body">
+            <h5 class="card-title">Java / DataBase 기록 남기기</h5>
           </div>
         </div>
       </div>
-      <div id="article_table">
-        <table class="table">
-          <thead class="table-dark">
-            <tr>
-              <th scope="col" width=15%>type</th>
-              <th scope="col" width=30%>title</th>
-              <th scope="col" width=15%>비밀글여부</th>
-              <th scope="col" width=20%>날짜</th>
-              <th scope="col" width=20%>수정/삭제</th>
-            </tr>
-          </thead>
-          <tbody>
-          <c:forEach items="${list }" var="boardvo">
-            <tr>
-              <th scope="row">${boardvo.type }</th>
-              <td>${boardvo.title}</td>
-              <td>${boardvo.viewmember}</td>
-              <td>${boardvo.indate}</td>
-              <td><a href="mod?modno=${boardvo.title}">수정</a>
-              <a href="del?delno=${boardvo.title}">/삭제</a></td>
-            </tr>
-            </c:forEach>
-          </tbody>
-        </table>
-        <div id="table_menu">
-          <a href="bwr">
-          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-file-plus"
-            viewBox="0 0 16 16">
-            <path d="M8.5 6a.5.5 0 0 0-1 0v1.5H6a.5.5 0 0 0 0 1h1.5V10a.5.5 0 0 0 1 0V8.5H10a.5.5 0 0 0 0-1H8.5V6z" />
-            <path
-              d="M2 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V2zm10-1H4a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1z" />
-          </svg>
-        </a>
+
+      <form class="row g-3" action="bwrdo" method="post">
+        <div class="col-md-4">
+          <label for="inputState" class="form-label">놀이터 선택</label>
+          <select id="inputState" class="form-select" name="type">
+            <option <c:if test="${boardvo.type eq 'DataBase' }">
+             selected </c:if>> Database</option>
+             
+            <option>Java</option>
+          </select>
+        </div>
+        <div class="col-md-3">
+          <label for="inputCity" class="form-label">작성자</label>
+          <input type="text" class="form-control" id="inputCity"name="${boardvo.name}">
+        </div>
+        <div class="col-md-3">
+          <label for="inputPassword4" class="form-label">Password</label>
+          <input type="password" class="form-control" id="inputPassword4" name="${boardvo.pass}">
+        </div>
+        <div class="col-12">
+          <label for="inputAddress" class="form-label">제목</label>
+          <input type="text" class="form-control" id="inputAddress" placeholder="제목을 입력하세요" name="${boardvo.title }">
         </div>
 
-      </div>
+
+        <div class="form-floating">
+          <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea2"
+            style="height: 200px" name="content">${boardvo.content}</textarea>
+          <label for="floatingTextarea2">Comments</label>
+        </div>
+        <div class="mb-3">
+          <input class="form-control" type="file" id="formFile">
+          <input class="form-control" type="file" id="formFile">
+        </div>
+
+        <div class="col-12">
+          <div class="form-check">
+            <input class="form-check-input" type="checkbox" id="gridCheck" name="viewmember" value=1
+            <c:if test="${boardvo.viewmember eq '비공개' }">
+             checked </c:if>>
+            <label class="form-check-label" for="gridCheck">
+              회원만 보기
+            </label>
+          </div>
+        </div>
+        <div class="col-12">
+          <button type="submit" class="btn btn-primary">수정하기</button>
+          <!--  submit 타입은 form action으로 지정된 곳으로 이동 -->
+        </div>
+      </form>
     </div>
+
   </div>
-
-
-
+  </div>
   <div id="asidelogin">
     <div id="loginbox">
       <div id="loginup">
@@ -530,8 +540,6 @@
 
     </div>
   </div>
-
-
   <div id="footer">
     <hr>
     김티처 tel. 010-9407-8767

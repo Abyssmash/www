@@ -13,4 +13,5 @@ public interface IF_BoardService {
 	// public void insertBoard(BoardVO boardvo) throws Exception;
 	public List<BoardVO> boardList() throws Exception;
 	public void deleteBoard(String delno) throws Exception;
+	public BoardVO modBoard(String modno) throws Exception;
 }

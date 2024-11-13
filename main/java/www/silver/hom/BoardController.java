@@ -42,6 +42,20 @@ public class BoardController {
 		// 전체 게시글을 가져오는 작업이 필요
 		return "board/bbswr";
 	}
+	@GetMapping(value="mod")
+	public String mod(@RequestParam("modno") String modno, Model model)throws Exception {
+		BoardVO bvo = boardservice.modBoard(modno);
+		//System.out.println(bvo.getTitle());
+		// sysout은 서버 입장에서 부하가 걸리는 작업이다.
+		// 그래서 테스트 했다면 삭제하거나 주석을 해야한다.
+		// 실제로 sysout은 잘사용하지 않는다.
+		// 테스트 하기 위해서는 junit test라는 도구를 사용해야한다.
+		// 또 기록을 남기기위해선 로그라는 기능을 사용해야한다.
+		// 로그는 홈 컨트롤러에 가면 볼 수 있다.
+		model.addAttribute("boardvo", bvo);
+		return "board/modform";
+		// 뷰 지정은 String
+	}
 	@GetMapping(value="del")
 	public String del(@RequestParam("delno") String delno)throws Exception {
 		boardservice.deleteBoard(delno);

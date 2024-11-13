@@ -12,6 +12,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	resultType = "www.silver.vo.BoardVO">
 	select * from kboard
 	</select>		
+	<select id="selectTitle" parameterType="String"
+	resultType= "www.silver.vo.BoardVO">
+	select * from kboard where title=#{t}
+	</select>
 	<delete id="delone"
 	parameterType="String">
 	delete from kboard where title=#{delno}

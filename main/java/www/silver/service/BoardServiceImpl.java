@@ -49,4 +49,10 @@ public class BoardServiceImpl implements IF_BoardService{
 		// TODO Auto-generated method stub
 		boarddao.deleteBoard(delno);
 	}
+
+	@Override
+	public BoardVO modBoard(String modno) throws Exception {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

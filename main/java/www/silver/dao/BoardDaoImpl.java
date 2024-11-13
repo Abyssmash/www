@@ -30,4 +30,9 @@ public class BoardDaoImpl implements IF_BoardDao {
 	public void deleteBoard(String delno) throws Exception{
 		sqlsession.delete(mapperQuery+".delone",delno);
 		}
+	@Override
+	public BoardVO selectOne(String title) throws Exception {
+		// TODO Auto-generated method stub
+		return sqlsession.selectOne(mapperQuery+".selectOne", title);
+	}
 }
