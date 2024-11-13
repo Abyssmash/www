@@ -38,10 +38,10 @@ public class BoardController {
 		pagevo.setTotalCount(boardservice.totalCountBoard());
 		
 		// 확인용
-		System.out.println(pagevo.getStartNo()+"시작 글번호");
-		System.out.println(pagevo.getEndNo()+"마지막 글번호");
-		System.out.println(pagevo.getStartPage()+"그룹시작 번호");
-		System.out.println(pagevo.getEndPage()+"그룹 마지막 번호");
+//		System.out.println(pagevo.getStartNo()+"시작 글번호");
+//		System.out.println(pagevo.getEndNo()+"마지막 글번호");
+//		System.out.println(pagevo.getStartPage()+"그룹시작 번호");
+//		System.out.println(pagevo.getEndPage()+"그룹 마지막 번호");
 		
 		
 		// 서비스 Layer에 전체글 서비스를 요청하고 결과를 리턴
