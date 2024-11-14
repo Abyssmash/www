@@ -11,8 +11,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 import www.silver.service.IF_BoardService;
+import www.silver.util.FileDataUtil;
 import www.silver.vo.BoardVO;
 import www.silver.vo.PageVO;
 
@@ -21,6 +23,9 @@ public class BoardController {
 	
 	@Inject	// 주입 받고 사용
 	IF_BoardService boardservice;
+	
+	@Inject
+	FileDataUtil filedatautil;
 	
 	@GetMapping(value = "board")
 	public String board(Model model,
@@ -86,9 +91,30 @@ public class BoardController {
 		return "redirect:board";
 	}
 	@PostMapping(value = "bwrdo")
-	public String bwrdo(@ModelAttribute BoardVO boardvo) throws Exception{
+	public String bwrdo(@ModelAttribute BoardVO boardvo, MultipartFile[] file) throws Exception{
 		//System.out.println(boardvo.toString());
+		//업로드 되는지 확인하는 중간 코드
+//		System.out.println(file.length);
+//		for(int i = 0; i<file.length; i++) {
+//			System.out.println(file[i].getOriginalFilename());
+//		}
 		boardservice.addBoard(boardvo);	//서비스보드에 있는 addboard를 보드브이오에
+		
+		String[] newFileName=filedatautil.fileUpload(file);
+		//System.out.println(newFileName);
+		boardvo.setFilename(newFileName);		boardservice.addBoard(boardvo);
+		// 랜덤으로 나온 문자는 DB에 저장해야하기 때문에 글자수를 세어보자
 		return "redirect:board";
+	}
+	@GetMapping(value="view")
+	public String boardView(@RequestParam("no") String no,
+			Model model) throws Exception {
+		BoardVO boardvo = boardservice.getBoard(no);
+		// attach 가져오기
+		List<String> attachList = boardservice.getAttach(no);
+		// view에게 전송할 값들: 게시글과 첨부파일
+		model.addAttribute("boardvo",boardvo);
+		model.addAttribute("attachList",attachList);
+		return "board/dview";
 	}
 }

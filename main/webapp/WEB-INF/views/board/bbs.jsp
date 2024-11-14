@@ -453,11 +453,11 @@
           <c:forEach items="${list }" var="boardvo">
             <tr>
               <th scope="row">${boardvo.type }</th>
-              <td>${boardvo.title}</td>
+              <td><a href="view?no=${boardvo.num}">${boardvo.title}></a></td>
               <td>${boardvo.viewmember}</td>
               <td>${boardvo.indate}</td>
-              <td><a href="mod?modno=${boardvo.title}">수정</a>
-              <a href="del?delno=${boardvo.title}">/삭제</a></td>
+              <td><a href="mod?modno=${boardvo.num}">수정</a>
+              <a href="del?delno=${boardvo.num}">/삭제</a></td>
             </tr>
             </c:forEach>
             <tr>

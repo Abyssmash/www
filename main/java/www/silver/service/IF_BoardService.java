@@ -17,4 +17,6 @@ public interface IF_BoardService {
 	public BoardVO modBoard(String modno) throws Exception;
 	public void modBoard(BoardVO boardvo) throws Exception;
 	public int totalCountBoard()throws Exception;
+	public BoardVO getBoard(String no)throws Exception;
+	public List<String> getAttach(String no)throws Exception;
 }

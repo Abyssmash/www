@@ -436,55 +436,42 @@
         </div>
       </div>
 
-      <form class="row g-3" action="mod" method="post">
+      <form class="row g-3" action="bwrdo" method="post" encType="multipart/form-data">
         <div class="col-md-4">
           <label for="inputState" class="form-label">놀이터 선택</label>
           <select id="inputState" class="form-select" name="type">
-            <option <c:if test="${boardvo.type eq 'DataBase' }">
-             selected </c:if>> Database</option>
-             
-            <option <c:if test="${boardvo.type eq 'Java'}">selected
-            </c:if>> Java</option>
+            <option selected>Database</option>
+            <option>Java</option>
           </select>
         </div>
         <div class="col-md-3">
+         ${boardvo.username }
           <label for="inputCity" class="form-label">작성자</label>
-          <input type="text" class="form-control" id="inputCity"name="username" value"${boardvo.username }">
+          <input type="text" class="form-control" id="inputCity" name="username">
         </div>
         <div class="col-md-3">
+         ${boardvo.pass }
           <label for="inputPassword4" class="form-label">Password</label>
-          <input type="password" class="form-control" id="inputPassword4" name="pass" value="${boardvo.pass}">
+          <input type="password" class="form-control" id="inputPassword4" name="pass">
         </div>
         <div class="col-12">
-          <label for="inputAddress" class="form-label">제목</label>
-          <input type="text" class="form-control" id="inputAddress" placeholder="제목을 입력하세요" name="title" 
-          value="${boardvo.title}" readonly>
+         ${boardvo.title }
         </div>
 
 
         <div class="form-floating">
-          <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea2"
-            style="height: 200px" name="content">${boardvo.content}</textarea>
-          <label for="floatingTextarea2">Comments</label>
+       	 ${boardvo.content }
         </div>
         <div class="mb-3">
-          <input class="form-control" type="file" id="formFile">
-          <input class="form-control" type="file" id="formFile">
+          
         </div>
-
+        	<c:forEach items="${attachList }" var="fname">
+        		<a href="download?filename=${fname }">fname</a>
+        		<img src="download?filename=${fname }">
+        	</c:forEach>
+        	
         <div class="col-12">
-          <div class="form-check">
-            <input class="form-check-input" type="checkbox" id="gridCheck" name="viewmember" value=1
-            <c:if test="${boardvo.viewmember eq '비공개' }">
-             checked </c:if>>
-            <label class="form-check-label" for="gridCheck">
-              회원만 보기
-            </label>
-          </div>
-        </div>
-        <div class="col-12">
-        	<input type="hidden" name="num" value="${boardvo.num }">
-          <button type="submit" class="btn btn-primary">수정하기</button>
+          <button type="button" class="btn btn-primary">확인</button>
           <!--  submit 타입은 form action으로 지정된 곳으로 이동 -->
         </div>
       </form>

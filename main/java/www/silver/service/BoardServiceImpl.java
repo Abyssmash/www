@@ -67,13 +67,35 @@ public class BoardServiceImpl implements IF_BoardService{
 		}else {
 			boardvo.setViewmember("비공개");
 		}
+		// 게시글을 kboard에 저장해라
 		boarddao.updateBoard(boardvo);
+		// 만약 첨부파일이 있다면 첨부파일을 kboardattach로 저장해라
+		String[] fname = boardvo.getFilename();
+		if(fname.length >= 1) {
+			for(int i=0; i<fname.length; i++) {
+				// kboard_attach 테이블에 저장하는 코드
+				if(fname[i] != null)
+				boarddao.insertAttach(fname[i]);
+			}
+		}
 	}
-
 
 	@Override
 	public int totalCountBoard() throws Exception {
 		// TODO Auto-generated method stub
 		return boarddao.cntBoard();
 	}
+
+	@Override
+	public BoardVO getBoard(String no) throws Exception {
+		// TODO Auto-generated method stub
+		return boarddao.selectOne(no);
+	}
+
+	@Override
+	public List<String> getAttach(String no) throws Exception {
+		// TODO Auto-generated method stub
+		return boarddao.selectAllAttach(no);
+	}
+	
 }

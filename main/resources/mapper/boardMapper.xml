@@ -6,7 +6,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<!--dao와 매핑은 namesspace, id, parameterType을 맞춘다. -->
 	<!-- parameterType은 쿼리문의 ?부분의 정보 -->
 	<insert id="inin" parameterType="www.silver.vo.BoardVO">		 
-		insert into kboard values (#{type},#{username},#{pass},#{title},#{content},#{viewmember},sysdate)
+		insert into kboard values (#{type},#{username},#{pass},#{title},#{content},#{viewmember},sysdate,
+		kboard_nextval)
 	</insert>
 	<select id="selectall"
 	resultType = "www.silver.vo.BoardVO">
@@ -19,17 +20,24 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>	
 	<select id="selectTitle" parameterType="String"
 	resultType= "www.silver.vo.BoardVO">
-		select * from kboard where title=#{t}
+		select * from kboard where num=#{title}
 	</select>
 	<update id="update"
 	parameterType="www.silver.vo.BoardVO">
 		update kboard set type=#{type}, pass=#{pass},
 		content=#{content},username=#{username},
-		viewmember=#{veiwmember} where title=#{title}
+		viewmember=#{veiwmember} where num=#{num}
 	</update>
+	<insert id="insertattach">
+		insert into kboard_attach values(
+		(select max(num)from kboard), #{fname),default)
+	</insert>
+	<select id="selectattach" resultType="String">
+		select filename from kboard where num=#{no}
+	</select>
 	<delete id="delone"
 	parameterType="String">
-		delete from kboard where title=#{delno}
+		delete from kboard where num=#{delno}
 	</delete>
 </mapper>
 
