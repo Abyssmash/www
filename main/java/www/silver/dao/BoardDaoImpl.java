@@ -31,7 +31,7 @@ public class BoardDaoImpl implements IF_BoardDao {
 	public void deleteBoard(String delno) throws Exception{
 		sqlsession.delete(mapperQuery+".delone",delno);
 		}
-	@Override
+	@Override                             
 	public BoardVO selectOne(String title) throws Exception {
 		// TODO Auto-generated method stub
 //		HashMap aa = new HashMap<String, String>();
@@ -52,11 +52,12 @@ public class BoardDaoImpl implements IF_BoardDao {
 	@Override
 	public void insertAttach(String fname) throws Exception {
 		// TODO Auto-generated method stub
+		//System.out.println("attach insert");
 		sqlsession.insert(mapperQuery+".insertattach", fname);
 	}
 	@Override
 	public List<String> selectAllAttach(String no) throws Exception {
 		// TODO Auto-generated method stub
-		return sqlsession.selectList(mapperQuery,".selectAttach", no);
+		return sqlsession.selectList(mapperQuery,".selectattach", no);
 	}
 }
