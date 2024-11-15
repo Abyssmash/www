@@ -4,12 +4,19 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 public class LoginController {
-
+	@GetMapping
+	public String logout(HttpServletRequest request
+			)throws Exception{
+		HttpSession session = request.getSession();
+		session.invalidate();	// 세션을 무력화
+		return "redirect:/";
+	}
 	@PostMapping("login")
 	public String login(@RequestParam("id")String id,
 			@RequestParam("pass") String pass,
